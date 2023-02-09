@@ -10,16 +10,18 @@ while True:
             todo_item = input("Enter a ToDo item: ")
             todo_list.append(todo_item)
         case 'show':
-            for item in todo_list:
-                print(item.title())
+            # Adding enumerate
+            # Adding Fstrings
+            for index, item in enumerate(todo_list):
+                print(f"{index} -{item.title()}")
         case 'exit':
             print("Now your ToDo items are :")
-            for item in todo_list:
-                print(item.title())
+            for index, item in enumerate(todo_list):
+                print(f"{index} -{item.title()}")
             break
         case 'edit':
-            for item in todo_list:
-                print(item)
+            for index, item in enumerate(todo_list):
+                print(f"{index} -{item.title()}")
             edit_item_number = int(input("Now select the item number you want to edit: ")) - 1
             new_edited_item = input("Enter a new item name: ")
             todo_list[edit_item_number] = new_edited_item
