@@ -15,7 +15,7 @@ while True:
 
             todo_list.append(todo_item)
 
-            # Adding Files feature (External file that stores the To-Do list
+            # Adding Files feature External file that stores the To-Do list
             # New list is overwriting the existing one. Hence, first read the file and append to the existing list
             file = open('todos.txt', 'w')
             file.writelines(todo_list)
@@ -23,14 +23,24 @@ while True:
         case 'show':
             # Adding enumerate
             # Adding Fstrings
+            # Opening the file in read mode here
+            file = open("todos.txt", 'r')
+            todo_list = file.readlines()
+            file.close()
             for index, item in enumerate(todo_list):
                 print(f"{index + 1}-{item.title()}")
         case 'exit':
             print("Now your ToDo items are :")
+            file = open("todos.txt", 'r')
+            todo_list = file.readlines()
+            file.close()
             for index, item in enumerate(todo_list):
                 print(f"{index + 1}-{item.title()}")
             break
         case 'edit':
+            file = open("todos.txt", 'r')
+            todo_list = file.readlines()
+            file.close()
             for index, item in enumerate(todo_list):
                 print(f"{index + 1}-{item.title()}")
             edit_item_number = int(input("Now select the item number you want to edit: ")) - 1
@@ -42,6 +52,9 @@ while True:
         # Adding "Complete" feature for the To-Do
         case 'complete':
             print("Your list is as follows")
+            file = open("todos.txt", 'r')
+            todo_list = file.readlines()
+            file.close()
             for index, item in enumerate(todo_list):
                 print(f"{index + 1}-{item.title()}")
             complete_number = int(input("Enter the number of the list item to be completed: "))
@@ -50,3 +63,4 @@ while True:
             print("Unknown command received")
 
 print("Good Bye!, End of ToDo")
+   
