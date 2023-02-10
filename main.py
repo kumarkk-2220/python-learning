@@ -1,17 +1,25 @@
 print("Making a ToDo app using Python")
 
-todo_list = []
-
 while True:
     user_input = input("Type add, show, edit, complete or exit: ").strip().lower()
 
     match user_input:
         case 'add':
             todo_item = input("Enter a ToDo item: ") + "\n"
+
+            # First reading the existing lines
+            file = open('todos.txt', 'r')
+            todo_list = file.readlines()
+            # Close the worked file
+            file.close()
+
             todo_list.append(todo_item)
+
             # Adding Files feature (External file that stores the To-Do list
+            # New list is overwriting the existing one. Hence, first read the file and append to the existing list
             file = open('todos.txt', 'w')
             file.writelines(todo_list)
+            file.close()
         case 'show':
             # Adding enumerate
             # Adding Fstrings
