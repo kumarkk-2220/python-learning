@@ -7,8 +7,11 @@ while True:
 
     match user_input:
         case 'add':
-            todo_item = input("Enter a ToDo item: ")
+            todo_item = input("Enter a ToDo item: ") + "\n"
             todo_list.append(todo_item)
+            # Adding Files feature (External file that stores the To-Do list
+            file = open('todos.txt', 'w')
+            file.writelines(todo_list)
         case 'show':
             # Adding enumerate
             # Adding Fstrings
