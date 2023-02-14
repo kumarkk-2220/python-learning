@@ -29,11 +29,14 @@ while True:
             todo_list = file.readlines()
             file.close()
 
-            # Stripping spaces between the items - using the 'for' loop
-            new_todos = []
+            # # Stripping spaces between the items - using the 'for' loop
+            # new_todos = []
+            #
+            # for item in todo_list:
+            #     new_todos.append(item.strip('\n'))
 
-            for item in todo_list:
-                new_todos.append(item.strip('\n'))
+            # Stripping the extra spaces or lines using list comprehensions
+            new_todos = [item.strip("\n") for item in todo_list]
 
             for index, item in enumerate(new_todos):
                 print(f"{index + 1}-{item.title()}")
@@ -44,11 +47,14 @@ while True:
             todo_list = file.readlines()
             file.close()
 
-            # Stripping spaces between the items - using the 'for' loop
-            new_todos = []
+            # # Stripping spaces between the items - using the 'for' loop
+            # new_todos = []
+            #
+            # for item in todo_list:
+            #     new_todos.append(item.strip('\n'))
 
-            for item in todo_list:
-                new_todos.append(item.strip('\n'))
+            # Stripping the extra spaces or lines using list comprehensions
+            new_todos = [item.strip("\n") for item in todo_list]
 
             for index, item in enumerate(new_todos):
                 print(f"{index + 1}-{item.title()}")
@@ -59,11 +65,14 @@ while True:
             todo_list = file.readlines()
             file.close()
 
-            # Stripping spaces between the items - using the 'for' loop
-            new_todos = []
+            # # Stripping spaces between the items - using the 'for' loop
+            # new_todos = []
+            #
+            # for item in todo_list:
+            #     new_todos.append(item.strip('\n'))
 
-            for item in todo_list:
-                new_todos.append(item.strip('\n'))
+            # Stripping the extra spaces or lines using list comprehensions
+            new_todos = [item.strip("\n") for item in todo_list]
 
             for index, item in enumerate(new_todos):
                 print(f"{index + 1}-{item.title()}")
