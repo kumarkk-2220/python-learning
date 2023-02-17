@@ -1,55 +1,49 @@
 while True:
-    actions = ["add", "edit", "show", "delete"]
-    operations = ["to add an item", "to delete an item", "to the added list of items", "to delete an item"]
+    choices = ["Add", "Edit", "Show", "Complete", "Exit"]
+    actions = ["To Add a To-Do Item", "To Edit a To-Do Item", "To Show list", "To Complete a To-Do Item", "To Exit"]
 
-    for action, operation in zip(actions, operations):
-        print(f"{action.title()} - {operation.title()}")
+    for choice, action in zip(choices, actions):
+        print(f"{choice} {action}: ")
 
-    user_choice = input("select any one of the above operations: ").strip().lower()
+    user_choice = input().lower().strip()
 
-    if user_choice == "add":
-        todo_item = input("Enter a ToDo item: ") + "\n"
+    if 'add' in user_choice or 'new' in user_choice:
+        todo_item = user_choice[4:] + "\n"
 
-        # First reading the existing lines
-        file = open('practice-todos.txt', 'r')
-        todo_list = file.readlines()
-        # Close the worked file
-        file.close()
+        with open("todos.txt", "r") as file:
+            todos = file.readlines()
 
-        todo_list.append(todo_item)
+        todos.append(todo_item)
 
-        # Adding Files feature External file that stores the To-Do list
-        # New list is overwriting the existing one. Hence, first read the file and append to the existing list
-        file = open('practice-todos.txt', 'w')
-        file.writelines(todo_list)
-        file.close()
-    elif user_choice == "show":
-        file = open("practice-todos.txt", 'r')
-        todos_file = file.readlines()
-        file.close()
-        for index, item in enumerate(todos_file):
-            print(f"{index+1}-{item}")
-            file.close()
-    elif user_choice == "edit":
-        file = open("practice-todos.txt", 'r')
-        todo_list = file.readlines()
-        file.close()
-        for index, item in enumerate(todo_list):
-            print(f"{index + 1}-{item.title()}")
-        edit_item_number = int(input("Now select the item number you want to edit: ")) - 1
-        new_edited_item = input("Enter a new item name: ")
-        todo_list[edit_item_number] = new_edited_item
-        print("The new edited item is ", new_edited_item)
-        for item in todo_list:
-            print(item)
-    elif user_choice == "delete":
-        file = open("practice-todos.txt", 'r')
-        todo_list = file.readlines()
-        file.close()
-        for index, item in enumerate(todo_list):
-            print(f"{index + 1}-{item.title()}")
-        removing_item = int(input("Enter the item number you want to remove"))
-        todo_list.pop(removing_item-1)
-    else:
-        print("Invalid operation")
+        with open("todos.txt", 'w') as file:
+            file.writelines(todos)
+
+    elif 'show' in user_choice:
+        with open("todos.txt", 'r') as file:
+            todos = file.readlines()
+            todos = [item.strip("\n") for item in todos]
+            for index, todo in enumerate(todos):
+                print(f"{index + 1}-{todo}")
+    elif 'edit' in user_choice:
+        with open("todos.txt", 'r') as file:
+            todos = file.readlines()
+
+        edit_item_name = input("Enter the new edit name")
+        todos[int(user_choice[5:]) - 1] = edit_item_name + "\n"
+
+        with open('todos.txt', 'w') as file:
+            file.writelines(todos)
+
+    elif 'complete' in user_choice:
+        with open("todos.txt", 'r') as file:
+            todos = file.readlines()
+
+        todos.pop(int(user_choice[9:]) - 1)
+
+        with open("todos.txt", 'w') as file:
+            file.writelines(todos)
+
+    elif 'exit' in user_choice:
         break
+    else:
+        print("Invalid command received")
