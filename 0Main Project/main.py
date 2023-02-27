@@ -1,90 +1,51 @@
-print("Making a ToDo app using Python")
-
 while True:
-    user_input = input("Type add, show, edit, complete or exit: ").strip().lower()
+    user_selection = input("Type add, edit, show, complete or exit: ").strip().lower()
 
-    if 'add' in user_input:
-        todo_item = user_input[4:] + "\n"
+    if user_selection.startswith("add"):
+        with open("todos.txt", 'r') as file:
+            todos = file.readlines()
 
-        # First reading the existing lines
-        # adding 'with' context manager
-        with (open('todos.txt', 'r')) as file:
-            todo_list = file.readlines()
+        todos.append(user_selection[4:] + "\n")
 
-        todo_list.append(todo_item)
+        with open("todos.txt", 'w') as file:
+            file.writelines(todos)
 
-        # Adding Files feature External file that stores the To-Do list
-        # New list is overwriting the existing one. Hence, first read the file and append to the existing list
+    elif user_selection.startswith("edit"):
+        try:
+            user_edit = int(user_selection[5:])
 
-        # Adding with context manager
-        with (open('todos.txt', 'w')) as file:
-            file.writelines(todo_list)
+            with open("todos.txt", 'r') as file:
+                todos = file.readlines()
 
-    elif 'show' in user_input:
-        # Adding enumerate
-        # Adding Fstrings
-        # Opening the file in read mode here
-        with (open('todos.txt', 'r')) as file:
-            todo_list = file.readlines()
+            new_item = input("Enter the new item name")
+            todos[user_edit - 1] = new_item + "\n"
 
-        # # Stripping spaces between the items - using the 'for' loop
-        # new_todos = []
-        #
-        # for item in todo_list:
-        #     new_todos.append(item.strip('\n'))
+            with open("todos.txt", 'w') as file:
+                file.writelines(todos)
+        except ValueError:
+            print("Your command is not valid")
+    elif user_selection.startswith("show"):
+        with open("todos.txt", 'r') as file:
+            todos = file.readlines()
 
-        # Stripping the extra spaces or lines using list comprehensions
-        new_todos = [item.strip("\n") for item in todo_list]
+        todos = [item.strip("\n") for item in todos]
 
-        for index, item in enumerate(new_todos):
-            print(f"{index + 1}-{item.title()}")
+        for index, todo in enumerate(todos):
+            print(f"{index+1}-{todo}")
+    elif user_selection.startswith("complete"):
+        try:
+            with open("todos.txt", 'r') as file:
+                todos = file.readlines()
 
-    elif 'exit' in user_input:
-        print("Now your ToDo items are :")
-        with (open('todos.txt', 'r')) as file:
-            todo_list = file.readlines()
-
-        # # Stripping spaces between the items - using the 'for' loop
-        # new_todos = []
-        #
-        # for item in todo_list:
-        #     new_todos.append(item.strip('\n'))
-
-        # Stripping the extra spaces or lines using list comprehensions
-        new_todos = [item.strip("\n") for item in todo_list]
-
-        for index, item in enumerate(new_todos):
-            print(f"{index + 1}-{item.title()}")
+            completed_item = int(user_selection[8:])
+            todos.pop(completed_item - 1)
+            with open("todos.txt", 'w') as file:
+                file.writelines(todos)
+        except IndexError:
+            print("No items with that number")
+            continue
+    elif user_selection.startswith("exit"):
+        print("Users exits from the prompts")
         break
-
-    elif 'edit' in user_input:
-        # Reading the file first
-        with (open('todos.txt', 'r')) as file:
-            todo_list = file.readlines()
-
-        edit_item_number = int(user_input[5:]) - 1
-        print(edit_item_number)
-        new_edited_item = input("Enter a new item name: ")
-        todo_list[edit_item_number] = new_edited_item + "\n"
-
-        with (open('todos.txt', 'w')) as file:
-            file.writelines(todo_list)
-
-    # Adding "Complete" feature for the To-Do
-    elif 'complete' in user_input:
-        with (open("todos.txt", 'r')) as file:
-            file.readlines()
-
-        complete_number = int(user_input[9:]) - 1
-        todo_to_remove = todo_list[complete_number].strip("\n")
-        todo_list.pop(complete_number)
-
-        with (open("todos.txt", 'w')) as file:
-            file.writelines(todo_list)
-
-        print(f"Your todo item {todo_to_remove} has been removed")
-
     else:
-        print("Unknown command received")
-
-print("Good Bye!, End of ToDo")
+        print("Invalid option selected")
