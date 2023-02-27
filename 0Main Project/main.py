@@ -1,9 +1,14 @@
+def get_todos():
+    with open("todos.txt", 'r') as file_local:
+        todos_local = file_local.readlines()
+    return todos_local
+
+
 while True:
     user_selection = input("Type add, edit, show, complete or exit: ").strip().lower()
 
     if user_selection.startswith("add"):
-        with open("todos.txt", 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         todos.append(user_selection[4:] + "\n")
 
@@ -14,10 +19,9 @@ while True:
         try:
             user_edit = int(user_selection[5:])
 
-            with open("todos.txt", 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
 
-            new_item = input("Enter the new item name")
+            new_item = input("Enter the new item name: ")
             todos[user_edit - 1] = new_item + "\n"
 
             with open("todos.txt", 'w') as file:
@@ -25,8 +29,7 @@ while True:
         except ValueError:
             print("Your command is not valid")
     elif user_selection.startswith("show"):
-        with open("todos.txt", 'r') as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         todos = [item.strip("\n") for item in todos]
 
@@ -34,8 +37,7 @@ while True:
             print(f"{index+1}-{todo}")
     elif user_selection.startswith("complete"):
         try:
-            with open("todos.txt", 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
 
             completed_item = int(user_selection[8:])
             todos.pop(completed_item - 1)
