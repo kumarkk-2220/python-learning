@@ -1,0 +1,12 @@
+[
+  {
+    "question": "Who lifted the Govardhana Giri?",
+    "alternatives": ["Lord Rama", "Lord Shiva", "Lord Krishna"],
+    "noted_answer": 2
+  },
+  {
+    "question": "Who is called as the Neel Kantha?",
+    "alternatives": ["Lord Rama", "Lord Shiva", "Lord Krishna"],
+    "noted_answer": 1
+  }
+]
