@@ -3,7 +3,7 @@
 import PySimpleGUI as sg
 from zipper import make_archive
 
-label_compress = sg.Text("Select files sto compress")
+label_compress = sg.Text("Select files to compress")
 label_compress_path = sg.Input()
 button_files_choose = sg.FilesBrowse("Choose", key="files")
 
